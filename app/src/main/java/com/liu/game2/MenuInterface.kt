@@ -51,7 +51,7 @@ class MenuInterface : Activity(), View.OnClickListener {
 //        btnPlay.setOnClickListener(this)
 //        btnSetting.setOnClickListener(this)
 //        btnScore.setOnClickListener(this)
-//        btnExit.setOnClickListener(this)
+        btnExit.setOnClickListener(this)
 
     }
 
