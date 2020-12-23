@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/menu_bg"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:id="@+id/menuInterface"
+    tools:context="com.liu.xiangling.PlayGame">
+
+
+    <ImageButton
+        android:id="@+id/btnScore"
+        android:layout_width="149dp"
+        android:layout_height="69dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/btn_score"
+        android:background="#0fff"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <ImageButton
+        android:id="@+id/btnPlay"
+        android:layout_width="101dp"
+        android:layout_height="88dp"
+        android:src="@mipmap/btn_play"
+        android:background="#0fff"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/btnScore"
+        android:layout_marginBottom="15dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/btnSetting"
+        android:layout_width="149dp"
+        android:layout_height="69dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/btn_setting"
+        android:background="#0fff"
+        android:layout_below="@id/btnScore"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/btnExit"
+        android:layout_width="149dp"
+        android:layout_height="69dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/btn_exit"
+        android:background="#0fff"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnSetting"
+        android:layout_marginTop="25dp"/>
+
+</RelativeLayout>

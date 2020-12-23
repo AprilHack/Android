@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg1"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:id="@+id/lyoutGame">
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btnGameSuspen"
+        android:background="#00000000"
+        android:src="@mipmap/gamesuspen"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textCount"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ff4066"
+        android:textStyle="bold"
+        android:textSize="15sp"/>
+
+</RelativeLayout>
