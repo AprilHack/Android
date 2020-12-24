@@ -3,6 +3,7 @@ package com.liu.game2
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Build
@@ -34,8 +35,8 @@ class PlayGame: Activity(), View.OnClickListener {
     //    private var levelName:String?=null
     private lateinit var levelName:String
 //    private var levelName:String
-//    音乐--暂时注释
-//    var mp: MediaPlayer? = null
+//    音乐
+    var mp: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,23 +48,23 @@ class PlayGame: Activity(), View.OnClickListener {
         levelName = data!!.getString("Level_Name").toString()
 //        levelName = data!!.getString("Level_Name")
         when (data!!.getString("MenName")) {
-            "石乐志" -> menName = R.mipmap.men1
-            "神经质" -> menName = R.mipmap.men2
+            "四月" -> menName = R.mipmap.men1
+            "五月" -> menName = R.mipmap.men2
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             //透明导航栏
-            //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
 
-        //音乐--暂时注释
-//        sp = SoundPool(0, AudioManager.STREAM_MUSIC, 0)
-//        songID = sp!!.load(this, R.raw.key_music, 1)
-//        mp = MediaPlayer.create(this, R.raw.b_music)  //初始化音乐资源
-//        mp!!.start()
-//            mp!!.isLooping = true
+        //音乐
+        sp = SoundPool(0, AudioManager.STREAM_MUSIC, 0)
+        songID = sp!!.load(this, R.raw.key_music, 1)
+        mp = MediaPlayer.create(this, R.raw.b_music)  //初始化音乐资源
+        mp!!.start()
+            mp!!.isLooping = true
 
         btnSuspen = findViewById(R.id.btnGameSuspen)
         btnSuspen!!.setOnClickListener(this)

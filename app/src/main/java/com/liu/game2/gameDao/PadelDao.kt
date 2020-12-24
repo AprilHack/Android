@@ -193,19 +193,19 @@ class PadelDao(private val man: ImageView, private val context: Context, private
             //GameScoreData类--暂时注释
             //        GameScoreData.scoreData.add(GameScoreData(scoreCount, date, levelName)) //存储成绩
 
-            //音乐--暂时注释
-            //        PlayGame.mp.pause()
+            //音乐
+            PlayGame.mp!!.pause()
 
             AlertDialog.Builder(context).setTitle("Game Over !").setMessage(("您在：" + date + " 下了：" +
                     scoreCount + "层\n差点就破纪录啦！")).setPositiveButton("返回主菜单"
             ) { dialogInterface, i ->
                 //返回主菜单的操作
                 running = false
-                //音乐--暂时注释
-                //            if (PlayGame.mp != null) {//释放掉音乐资源
-                //                PlayGame.mp.release()
-                //                PlayGame.mp = null
-                //            }
+                //音乐
+                if (PlayGame.mp != null) {//释放掉音乐资源
+                    PlayGame.mp!!.release()
+                    PlayGame.mp = null
+                }
                 //存储--暂时注释
                 //            try {  //存储信息
                 //                val os = context.openFileOutput("Score", Context.MODE_PRIVATE)
@@ -221,8 +221,8 @@ class PadelDao(private val man: ImageView, private val context: Context, private
                 override fun onClick(dialogInterface: DialogInterface, i:Int) { //重新初始化游戏的操作
                     restore()
                     suspen = false
-                    //音乐--暂时注释
-                    //            PlayGame.mp.start()
+                    //音乐
+                    PlayGame.mp!!.start()
                 }
             }).show()
         }
