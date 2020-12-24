@@ -5,15 +5,21 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.BitmapFactory
+import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Message
 import android.util.DisplayMetrics
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+
 import com.liu.game2.PlayGame
 import com.liu.game2.R
+import com.liu.game2.gameDomin.GameScoreData
 import com.liu.game2.gameDomin.Padel
+
+import java.io.FileNotFoundException
+import java.io.OutputStream;
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -71,8 +77,8 @@ class PadelDao(private val man: ImageView, private val context: Context, private
 
         val p = padelsList[0]
         index = p
-        val x = p.getX() + (p.getLength() / 2)
-        val mom = (dm.heightPixels / PadelDao.PADEL_SPEED)
+        val x = p.x + p.length / 2
+        val mom = dm.heightPixels / PadelDao.PADEL_SPEED
         man.x = x.toFloat()             //小人的位置XY坐标初始化
         man.y = (mom * (PadelDao.PADEL_SPEED / 2)).toFloat()
         gameStartTime = System.currentTimeMillis()
@@ -190,8 +196,8 @@ class PadelDao(private val man: ImageView, private val context: Context, private
             val finalGameScore = gameEndTime - gameStartTime - continueTime
             val date = sd.format(Date(finalGameScore))
 
-            //GameScoreData类--暂时注释
-            //        GameScoreData.scoreData.add(GameScoreData(scoreCount, date, levelName)) //存储成绩
+            //存储成绩
+            GameScoreData.scoreData.add(GameScoreData(scoreCount, date, levelName)) //存储成绩
 
             //音乐
             PlayGame.mp!!.pause()
@@ -206,15 +212,14 @@ class PadelDao(private val man: ImageView, private val context: Context, private
                     PlayGame.mp!!.release()
                     PlayGame.mp = null
                 }
-                //存储--暂时注释
-                //            try {  //存储信息
-                //                val os = context.openFileOutput("Score", Context.MODE_PRIVATE)
-                //                GameScoreData.Sort() //先排序
-                //                GameScoreData.saveScoreData(os)
-                //            } catch (e: FileNotFoundException) {
-                //                e.printStackTrace()
-                //            }
-
+                //存储
+                try {  //存储信息
+                    val os = context.openFileOutput("Score", Context.MODE_PRIVATE)
+                    GameScoreData.Sort() //先排序
+                    GameScoreData.saveScoreData(os)
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                }
                 restore()
                 (context as Activity).finish()
             }.setCancelable(false).setNegativeButton("重新玩", object: DialogInterface.OnClickListener {
@@ -283,5 +288,8 @@ class PadelDao(private val man: ImageView, private val context: Context, private
         private val MEN_OUT_DROP_SPEED = PADEL_SPEED * 2 //小人掉落的速度单位数量
         var DOWN_TIME = 30  //踏板移动的速度控制
         var ADD_PEDAL_TIME = 60 //踏板移动多少次产生新的踏板控制
+
+        var menX: Float = 0.toFloat()//public static float menX;
+        var mp: MediaPlayer? = null//public static MediaPlayer mp;
     }
 }

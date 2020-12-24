@@ -7,7 +7,6 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.SoundPool
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.MotionEvent
@@ -16,11 +15,15 @@ import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
+
 import com.liu.game2.gameDao.PadelDao
 
 class PlayGame: Activity(), View.OnClickListener {
+//    object mp {
+//        var mp = MediaPlayer.create(this, R.raw.b_music)  //初始化音乐资源
+//    }
+
     private var x:Int = 0
-    var menX: Float = 0.toFloat()
     private lateinit var man: ImageView
     private lateinit var padel: PadelDao
     private lateinit var layout: RelativeLayout
@@ -33,10 +36,13 @@ class PlayGame: Activity(), View.OnClickListener {
     private var addPadelTime:Int = 0
     private var menName:Int = 0
     //    private var levelName:String?=null
+    //    private var levelName:String
     private lateinit var levelName:String
-//    private var levelName:String
-//    音乐
-    var mp: MediaPlayer? = null
+
+    var menX: Float = 0.toFloat()//public static float menX;
+    //    音乐
+    var mp: MediaPlayer? = null//public static MediaPlayer mp;
+//    var mp = MediaPlayer.create(this, R.raw.b_music)  //初始化音乐资源 68行
 
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +70,7 @@ class PlayGame: Activity(), View.OnClickListener {
         songID = sp!!.load(this, R.raw.key_music, 1)
         mp = MediaPlayer.create(this, R.raw.b_music)  //初始化音乐资源
         mp!!.start()
-            mp!!.isLooping = true
+        mp!!.isLooping = true
 
         btnSuspen = findViewById(R.id.btnGameSuspen)
         btnSuspen!!.setOnClickListener(this)
@@ -88,7 +94,6 @@ class PlayGame: Activity(), View.OnClickListener {
                 menX += 10f
                 man!!.setTranslationX(menX)
             }
-//                man!!.setTranslationX(menX += 10f)
         }
         if (event.x < x) {  //左边
             if (menX > 0) {
