@@ -15,6 +15,7 @@ import java.io.FileNotFoundException
 import java.io.InputStream;
 
 import com.liu.game2.gameDomin.DialogScore;
+import com.liu.game2.gameDomin.DialogSetting
 //import com.liu.game2.gameDomin.DialogSetting;
 import com.liu.game2.gameDomin.GameScoreData;
 
@@ -22,7 +23,8 @@ class MenuInterface : Activity(), View.OnClickListener {
 
     private var sp: SoundPool? = null
     private var songID: Int = 0
-//    private var dialogSetting: DialogSetting? = null
+    // 设置
+    private var dialogSetting: DialogSetting? = null
     private var menName = "四月"
     private var level = "小渣渣"
     private var moveTime: Int = 0   //踏板移动速度
@@ -41,7 +43,7 @@ class MenuInterface : Activity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
-            // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //透明导航栏
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         }
@@ -99,17 +101,17 @@ class MenuInterface : Activity(), View.OnClickListener {
                 startActivity(intent)
             }
             //设置
-//            R.id.btnSetting -> {
-//                sp!!.play(songID, 1f, 1f, 0, 0, 1f)
-//                dialogSetting = DialogSetting(this, 300, 500)
-//                dialogSetting!!.setCancelable(false)
-//                dialogSetting!!.show()
-//                dialogSetting!!.setButtobSaveListener(View.OnClickListener {
-//                    menName = dialogSetting!!.getMenName()
-//                    level = dialogSetting!!.getLevelName()
-//                    dialogSetting!!.dismiss()
-//                })
-//            }
+            R.id.btnSetting -> {
+                sp!!.play(songID, 1f, 1f, 0, 0, 1f)
+                dialogSetting = DialogSetting(this, 300, 500)
+                dialogSetting!!.setCancelable(false)
+                dialogSetting!!.show()
+                dialogSetting!!.setButtobSaveListener(View.OnClickListener {
+                    menName = dialogSetting!!.getMenName()
+                    level = dialogSetting!!.getLevelName()
+                    dialogSetting!!.dismiss()
+                })
+            }
             //成绩榜
             R.id.btnScore -> {
                 sp!!.play(songID, 1f, 1f, 0, 0, 1f)
