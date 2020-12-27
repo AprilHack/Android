@@ -10,14 +10,13 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageButton
 import androidx.annotation.Nullable
+import com.liu.game2.gameDomin.DialogScore
+import com.liu.game2.gameDomin.DialogSetting
+import com.liu.game2.gameDomin.GameScoreData
 
 import java.io.FileNotFoundException
-import java.io.InputStream;
 
-import com.liu.game2.gameDomin.DialogScore;
-import com.liu.game2.gameDomin.DialogSetting
 //import com.liu.game2.gameDomin.DialogSetting;
-import com.liu.game2.gameDomin.GameScoreData;
 
 class MenuInterface : Activity(), View.OnClickListener {
 
