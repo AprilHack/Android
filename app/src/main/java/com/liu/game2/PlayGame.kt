@@ -42,8 +42,8 @@ moveTime = data!!.getInt("Level_MoveTime")
 addPadelTime = data!!.getInt("Level_addPadelTime")
 levelName = data!!.getString("Level_Name").toString()
 when (data!!.getString("MenName")) {
-"石乐志" -> menName = R.mipmap.men1
-"神经质" -> menName = R.mipmap.men2
+"四月" -> menName = R.mipmap.men1
+"五月" -> menName = R.mipmap.men2
 }
 
 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)

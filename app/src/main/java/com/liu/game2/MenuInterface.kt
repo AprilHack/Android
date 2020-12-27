@@ -74,7 +74,7 @@ class MenuInterface : Activity(), View.OnClickListener {
                 moveTime = 8
                 addPadelTime = 180
             }
-            "精神科" -> {
+            "精神病" -> {
                 moveTime = 5
                 addPadelTime = 250
             }
