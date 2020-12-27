@@ -198,6 +198,7 @@ class PadelDao(private val man: ImageView, private val context: Context, private
 
             //存储成绩
             GameScoreData.scoreData.add(GameScoreData(scoreCount, date, levelName)) //存储成绩
+            contextDao.saveGameData(GameScoreData.scoreData)
 
             //音乐
             PlayGame.mp!!.pause()
@@ -292,4 +293,8 @@ class PadelDao(private val man: ImageView, private val context: Context, private
         var menX: Float = 0.toFloat()//public static float menX;
         var mp: MediaPlayer? = null//public static MediaPlayer mp;
     }
+}
+
+private fun Context.sharedPreferences() {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 }
