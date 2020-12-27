@@ -34,129 +34,126 @@ class PlayGame:Activity(), View.OnClickListener {
 //    private var levelName:String? = null
     private lateinit var levelName:String
 
-override fun onCreate(savedInstanceState:Bundle?) {
-super.onCreate(savedInstanceState)
-setContentView(R.layout.activity_game)
-val data = intent.getBundleExtra("data")
-moveTime = data!!.getInt("Level_MoveTime")
-addPadelTime = data!!.getInt("Level_addPadelTime")
-levelName = data!!.getString("Level_Name").toString()
-when (data!!.getString("MenName")) {
-"四月" -> menName = R.mipmap.men1
-"五月" -> menName = R.mipmap.men2
-}
+    override fun onCreate(savedInstanceState:Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_game)
+        val data = intent.getBundleExtra("data")
+        moveTime = data!!.getInt("Level_MoveTime")
+        addPadelTime = data!!.getInt("Level_addPadelTime")
+        levelName = data!!.getString("Level_Name").toString()
+        when (data!!.getString("MenName")) {
+            "四月" -> menName = R.mipmap.men1
+            "五月" -> menName = R.mipmap.men2
+        }
 
-if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-{
- //透明状态栏
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
- //透明导航栏
+            //透明导航栏
             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
 
-sp = SoundPool(0, AudioManager.STREAM_MUSIC, 0)
-songID = sp!!.load(this, R.raw.key_music, 1)
-mp = MediaPlayer.create(this, R.raw.b_music)  //初始化音乐资源
-mp!!.start()
-    mp!!.isLooping = true
+        //音乐
+        sp = SoundPool(0, AudioManager.STREAM_MUSIC, 0)
+        songID = sp!!.load(this, R.raw.key_music, 1)
+        mp = MediaPlayer.create(this, R.raw.b_music)  //初始化音乐资源
+        mp!!.start()
+        mp!!.isLooping = true
 
-btnSuspen = findViewById(R.id.btnGameSuspen)
-btnSuspen!!.setOnClickListener(this)
-layout = findViewById(R.id.lyoutGame)
-dm = resources.displayMetrics
-x = dm!!.widthPixels / 2
-man = ImageView(this)
-man!!.setImageResource(menName)
- //man.setScaleType(ImageView.ScaleType.FIT_CENTER);
-    man!!.layoutParams = RelativeLayout.LayoutParams(60, 100)
-    man!!.scaleType = ImageView.ScaleType.FIT_XY
-init()
-menX = man!!.x
-layout!!.addView(man)
-}
-
-
-
-override fun onTouchEvent(event:MotionEvent):Boolean {
-if (event.x > x)
-{  //右边
-if ((menX + man!!.width) < dm!!.widthPixels)
-    menX+= 10f
-    man!!.setTranslationX(menX)
-}
-if (event.x < x)
-{  //左边
-if (menX > 0)
-    menX -= 10f
-    man!!.setTranslationX(menX)
-}
-return true
-}
- fun init() {
-padel = PadelDao(man, this, layout, dm, moveTime, addPadelTime, levelName)
-padel!!.initPadel()
-Thread(padel).start()
-}
+        btnSuspen = findViewById(R.id.btnGameSuspen)
+        btnSuspen!!.setOnClickListener(this)
+        layout = findViewById(R.id.lyoutGame)
+        dm = resources.displayMetrics
+        x = dm!!.widthPixels / 2
+        man = ImageView(this)
+        man!!.setImageResource(menName)
+        //man.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        man!!.layoutParams = RelativeLayout.LayoutParams(60, 100)
+        man!!.scaleType = ImageView.ScaleType.FIT_XY
+        init()
+        menX = man!!.x
+        layout!!.addView(man)
+    }
 
 
 
-override fun onRestart() {
-mp!!.start()
-padel!!.continueGame()
-super.onRestart()
-}
+    override fun onTouchEvent(event:MotionEvent):Boolean {
+        if (event.x > x) {  //右边
+            if ((menX + man!!.width) < dm!!.widthPixels)
+                menX+= 10f
+                man!!.setTranslationX(menX)
+        }
+        if (event.x < x) {  //左边
+            if (menX > 0)
+                menX -= 10f
+                man!!.setTranslationX(menX)
+        }
+        return true
+    }
+    fun init() {
+        padel = PadelDao(man, this, layout, dm, moveTime, addPadelTime, levelName)
+        padel!!.initPadel()
+        Thread(padel).start()
+    }
 
-override fun onPause() {
-if (mp != null) mp!!.pause()
-super.onPause()
-}
-
-override fun onStop() {
-padel!!.suspendGame()
-super.onStop()
-}
 
 
-override fun onClick(view:View) {  //用户点击了暂停按钮
-sp!!.play(songID, 1f, 1f, 0, 0, 1f)
-padel!!.suspendGame()
-mp!!.pause()
-AlertDialog.Builder(this).setTitle("暂停").setMessage("暂停了游戏").setPositiveButton("返回主菜单"
-) { dialogInterface, i ->
-    mp!!.release()
-    mp = null
-    finish()
-}.setNegativeButton("继续游戏", object:DialogInterface.OnClickListener {
-override fun onClick(dialogInterface:DialogInterface, i:Int) {
-padel!!.continueGame()
-mp!!.start()
-}
-}).setCancelable(false).show()
-}
+    override fun onRestart() {
+        mp!!.start()
+        padel!!.continueGame()
+        super.onRestart()
+    }
 
-override fun onBackPressed() {   //用户按下返回键的监听事件
-padel!!.suspendGame()
-mp!!.pause()
-AlertDialog.Builder(this).setTitle("暂停").setMessage("暂停了游戏").setPositiveButton("返回主菜单", object:DialogInterface.OnClickListener {
-override fun onClick(dialogInterface:DialogInterface, i:Int) {
-mp!!.release()
-mp = null
-finish()
-}
-}).setNegativeButton("继续游戏", object:DialogInterface.OnClickListener {
-override fun onClick(dialogInterface:DialogInterface, i:Int) {
-padel!!.continueGame()
-mp!!.start()
-}
-}).setCancelable(false).show()
+    override fun onPause() {
+        if (mp != null) mp!!.pause()
+        super.onPause()
+    }
 
-}
+    override fun onStop() {
+        padel!!.suspendGame()
+        super.onStop()
+    }
 
-companion object {
-//    lateinit var mp: Animator
-    var menX:Float = 0.toFloat()
-     var mp:MediaPlayer? = null
-}
+
+    override fun onClick(view:View) {  //用户点击了暂停按钮
+        sp!!.play(songID, 1f, 1f, 0, 0, 1f)
+        padel!!.suspendGame()
+        mp!!.pause()
+        AlertDialog.Builder(this).setTitle("暂停").setMessage("暂停了游戏").setPositiveButton("返回主菜单"
+        ) { dialogInterface, i ->
+            mp!!.release()
+            mp = null
+            finish()
+        }.setNegativeButton("继续游戏", object:DialogInterface.OnClickListener {
+            override fun onClick(dialogInterface:DialogInterface, i:Int) {
+                padel!!.continueGame()
+                mp!!.start()
+            }
+        }).setCancelable(false).show()
+    }
+
+    override fun onBackPressed() {   //用户按下返回键的监听事件
+        padel!!.suspendGame()
+        mp!!.pause()
+        AlertDialog.Builder(this).setTitle("暂停").setMessage("暂停了游戏").setPositiveButton("返回主菜单", object:DialogInterface.OnClickListener {
+        override fun onClick(dialogInterface:DialogInterface, i:Int) {
+            mp!!.release()
+            mp = null
+            finish()
+        }
+        }).setNegativeButton("继续游戏", object:DialogInterface.OnClickListener {
+            override fun onClick(dialogInterface:DialogInterface, i:Int) {
+                padel!!.continueGame()
+                mp!!.start()
+            }
+        }).setCancelable(false).show()
+    }
+
+    companion object {
+    //    lateinit var mp: Animator
+        var menX:Float = 0.toFloat()
+        var mp:MediaPlayer? = null
+    }
 }
 
 

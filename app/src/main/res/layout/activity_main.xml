@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:clipToPadding="true"
     android:id="@+id/menuInterface"
-    tools:context="com.liu.xiangling.PlayGame">
+    tools:context="com.liu.game2.PlayGame">
 
 
     <ImageButton

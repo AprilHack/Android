@@ -16,7 +16,6 @@ import com.liu.game2.gameDomin.GameScoreData
 
 import java.io.FileNotFoundException
 
-//import com.liu.game2.gameDomin.DialogSetting;
 
 class MenuInterface : Activity(), View.OnClickListener {
 
@@ -120,10 +119,12 @@ class MenuInterface : Activity(), View.OnClickListener {
                         String.format(
                             "%s%s%s%s%s",
                             g.getLevel(),
-                            " 成绩：",
+                            " 成绩：初级",
                             g.getScoreCount(),
-                            "层 时间：",
+//                            "层 时间：",
+                            " 时间：",
                             g.getScoreDate()
+
                         )
                     )
                 }
